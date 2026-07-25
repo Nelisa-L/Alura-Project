@@ -2,8 +2,12 @@ langchain==0.3.7
 langchain-community==0.3.7
 langchain-ollama==0.2.0
 langchain-huggingface==0.1.2
+langchain-groq==0.2.5
+langchain-core==0.3.63
+langsmith==0.1.147
 sentence-transformers==3.3.1
 faiss-cpu>=1.9.0
 pypdf==5.1.0
-pandas==2.2.3
+pandas>=2.2.3
 streamlit==1.40.1
+groq

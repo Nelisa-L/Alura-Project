@@ -1,26 +1,44 @@
 """
 app.py
 ------
-Interfaz web (Streamlit) para interactuar con el agente de forma
-conversacional. Ejecutar con:
+Interfaz web (Streamlit) para interactuar con el agente.
 
+Detecta automaticamente el entorno de ejecucion:
+- Si existe la variable de entorno GROQ_API_KEY -> usa Groq (pensado para
+  despliegue en la nube, por ejemplo Render, donde no es viable correr
+  Ollama por falta de RAM).
+- Si no existe -> usa Ollama (pensado para desarrollo local).
+
+Ejecutar con:
     streamlit run app.py
 """
+import os
 import streamlit as st
-from src.agent import DocumentAgent
+
+USE_CLOUD = bool(os.environ.get("GROQ_API_KEY"))
 
 st.set_page_config(page_title="Asistente NelisaPay", page_icon="💬")
 st.title("💬 Asistente Virtual — NelisaPay")
 st.caption(
-    "Agente de IA que responde preguntas sobre privacidad, términos de uso, "
-    "límites de transacciones, seguridad y tarifas, basándose en la "
-    "documentación oficial cargada en /data."
+    "Agente de IA que responde preguntas sobre privacidad, terminos de uso, "
+    "limites de transacciones, seguridad y tarifas, basandose en la "
+    "documentacion oficial cargada en /data."
 )
 
+if USE_CLOUD:
+    st.caption("🌐 Modo nube activo (motor: Groq)")
+else:
+    st.caption("💻 Modo local activo (motor: Ollama)")
 
-@st.cache_resource(show_spinner="Cargando el agente y el índice de documentos...")
+
+@st.cache_resource(show_spinner="Cargando el agente y el indice de documentos...")
 def load_agent():
-    return DocumentAgent()
+    if USE_CLOUD:
+        from src.agent_cloud import DocumentAgentCloud
+        return DocumentAgentCloud()
+    else:
+        from src.agent import DocumentAgent
+        return DocumentAgent()
 
 
 try:
@@ -32,7 +50,7 @@ except RuntimeError as e:
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {"role": "assistant", "content": "¡Hola! Soy el asistente de NelisaPay. "
-                                          "Puedes preguntarme sobre límites de transacciones, "
+                                          "Puedes preguntarme sobre limites de transacciones, "
                                           "tarifas, seguridad o privacidad."}
     ]
 
