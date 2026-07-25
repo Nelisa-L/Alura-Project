@@ -5,15 +5,12 @@ Lee todos los documentos soportados (PDF y CSV) dentro de /data,
 los divide en fragmentos (chunks), genera sus embeddings y construye
 un indice vectorial FAISS que se guarda en /vectorstore.
 
-Este script se ejecuta una sola vez (o cada vez que cambian los
-documentos fuente). El agente (agent.py / agent_cloud.py) luego solo
-carga el indice ya construido, sin necesidad de reprocesar los documentos.
-
 Motor de embeddings segun el entorno:
 - Local (desarrollo, sin GROQ_API_KEY): sentence-transformers (HuggingFace),
-  mas preciso pero requiere PyTorch (~500MB+ de RAM).
-- Nube (deploy, con GROQ_API_KEY definido): FastEmbed (ONNX, sin PyTorch),
-  mucho mas liviano en RAM, apto para el tier gratuito de Render (512MB).
+  corre en tu propia maquina, sin limite de RAM relevante.
+- Nube (deploy, con GROQ_API_KEY definido): API de inferencia de HuggingFace
+  (llamada remota via HTTP). No carga ningun modelo en memoria local, ideal
+  para el tier gratuito de Render (512MB de RAM).
 """
 import os
 import glob
@@ -32,16 +29,25 @@ USE_CLOUD = bool(os.environ.get("GROQ_API_KEY"))
 # Modelo local (sentence-transformers), multilingue, usado en desarrollo
 HF_EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
-# Modelo liviano (FastEmbed/ONNX), multilingue, usado en la nube (bajo RAM)
-FASTEMBED_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+# Mismo modelo pero llamado via API remota de HuggingFace (sin cargarlo en RAM local)
+HF_API_EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 
 def get_embeddings():
     """Devuelve el motor de embeddings segun el entorno de ejecucion."""
     if USE_CLOUD:
-        from langchain_community.embeddings import FastEmbedEmbeddings
-        print(f"[ingest] Usando FastEmbed (modo nube, bajo consumo de RAM): {FASTEMBED_MODEL}")
-        return FastEmbedEmbeddings(model_name=FASTEMBED_MODEL)
+        from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+        hf_token = os.environ.get("HF_TOKEN")
+        if not hf_token:
+            raise RuntimeError(
+                "Falta la variable de entorno HF_TOKEN. "
+                "Crea un token gratuito (read) en https://huggingface.co/settings/tokens"
+            )
+        print(f"[ingest] Usando API remota de HuggingFace (modo nube, sin RAM local): {HF_API_EMBEDDING_MODEL}")
+        return HuggingFaceInferenceAPIEmbeddings(
+            api_key=hf_token,
+            model_name=HF_API_EMBEDDING_MODEL,
+        )
     else:
         from langchain_huggingface import HuggingFaceEmbeddings
         print(f"[ingest] Usando HuggingFace sentence-transformers (modo local): {HF_EMBEDDING_MODEL}")
