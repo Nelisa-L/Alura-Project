@@ -22,7 +22,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
 VECTORSTORE_DIR = os.path.join(os.path.dirname(__file__), "..", "vectorstore")
-FASTEMBED_MODEL = "intfloat/multilingual-e5-small"
+FASTEMBED_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 # Modelo servido por Groq. Llama 3.1 8B es rápido y gratuito en su tier free.
 GROQ_MODEL = os.environ.get("GROQ_MODEL", "llama-3.1-8b-instant")

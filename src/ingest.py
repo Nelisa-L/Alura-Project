@@ -33,7 +33,7 @@ USE_CLOUD = bool(os.environ.get("GROQ_API_KEY"))
 HF_EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 # Modelo liviano (FastEmbed/ONNX), multilingue, usado en la nube (bajo RAM)
-FASTEMBED_MODEL = "intfloat/multilingual-e5-small"
+FASTEMBED_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 
 def get_embeddings():
