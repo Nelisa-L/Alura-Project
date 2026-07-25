@@ -1,0 +1,16 @@
+categoria,pregunta,respuesta
+Limites,¿Cuál es el límite diario de transferencia para una cuenta verificada?,El límite diario para cuentas verificadas (KYC completo) es de $5,000 USD.
+Limites,¿Cuál es el límite diario para una cuenta no verificada?,El límite diario para cuentas no verificadas es de $500 USD.
+Limites,¿Cuál es el límite mensual para cuentas verificadas?,El límite mensual para cuentas verificadas es de $50,000 USD.
+Transacciones,¿Cuánto tarda una transferencia entre cuentas NelisaPay?,Las transferencias entre cuentas NelisaPay son instantáneas.
+Transacciones,¿Cuánto tarda una transferencia a un banco externo?,Las transferencias a bancos externos tardan entre 1 y 3 días hábiles.
+Transacciones,¿Qué hago si mi transferencia no llega después de 3 días?,Puedes abrir un caso de soporte desde la sección 'Ayuda' de la aplicación.
+Tarifas,¿Cuánto cuesta transferir entre cuentas NelisaPay?,Las transferencias entre cuentas NelisaPay no tienen ningún costo.
+Tarifas,¿Cuánto cuesta transferir a una cuenta bancaria externa?,Tiene una comisión fija de $1.50 USD por transacción.
+Tarifas,¿Cuánto cobra un retiro en cajero automático?,Los retiros en cajeros afiliados tienen una comisión de $2.00 USD por retiro.
+Tarifas,¿Cuánto cuesta el cambio de divisas en la plataforma?,El cambio de divisas aplica una comisión del 1.5% sobre el monto convertido.
+Tarifas,¿Hay comisión por mantenimiento de cuenta?,No existen comisiones por mantenimiento de cuenta ni por inactividad.
+Seguridad,¿NelisaPay solicita contraseñas por teléfono o correo?,No. NelisaPay nunca solicita contraseñas ni códigos de verificación por esos medios; si ocurre, es un intento de phishing.
+Seguridad,¿Cuándo se requiere autenticación de dos factores?,Se requiere 2FA obligatorio en inicios de sesión desde dispositivos nuevos y en transferencias mayores a $1,000 USD.
+Privacidad,¿NelisaPay comparte mis datos con terceros?,No. NelisaPay no vende ni comparte datos personales con terceros con fines comerciales.
+Privacidad,¿Cómo elimino mi cuenta y mis datos?,Puedes escribir a privacidad@nelisapay.com; la eliminación se procesa en un máximo de 30 días hábiles.
