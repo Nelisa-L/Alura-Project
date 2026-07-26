@@ -197,6 +197,19 @@ instancia gratuita de Oracle Cloud Infrastructure - OCI Ampere A1),
 instalando Ollama en el servidor y ejecutando `streamlit run app.py`
 detrás de un proxy con HTTPS.
 
+## ☁️ Despliegue en la nube
+
+La aplicación está desplegada y funcionando en Render:
+
+🔗 **https://alura-project.onrender.com**
+
+*(La primera carga puede tardar ~30-50 segundos, ya que el plan gratuito 
+"duerme" la instancia tras un periodo de inactividad)*
+
+En la nube, el agente usa **Groq** (LLM) y la **API de inferencia de 
+HuggingFace** (embeddings) en lugar de Ollama/sentence-transformers, 
+para operar dentro de los límites de RAM del tier gratuito.
+
 ## 📌 Notas
 
 - Los documentos incluidos en `/data` son **ficticios**, creados únicamente
