@@ -203,6 +203,8 @@ La aplicación está desplegada y funcionando en Render:
 
 🔗 **https://alura-project.onrender.com**
 
+![Evidencia de despliegue funcionando en Render](screenshots/evidencia.png)
+
 *(La primera carga puede tardar ~30-50 segundos, ya que el plan gratuito 
 "duerme" la instancia tras un periodo de inactividad)*
 
