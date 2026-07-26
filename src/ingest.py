@@ -36,7 +36,7 @@ HF_API_EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L
 def get_embeddings():
     """Devuelve el motor de embeddings segun el entorno de ejecucion."""
     if USE_CLOUD:
-        from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+        from hf_router_embeddings import HFRouterEmbeddings
         hf_token = os.environ.get("HF_TOKEN")
         if not hf_token:
             raise RuntimeError(
@@ -44,10 +44,7 @@ def get_embeddings():
                 "Crea un token gratuito (read) en https://huggingface.co/settings/tokens"
             )
         print(f"[ingest] Usando API remota de HuggingFace (modo nube, sin RAM local): {HF_API_EMBEDDING_MODEL}")
-        return HuggingFaceInferenceAPIEmbeddings(
-            api_key=hf_token,
-            model_name=HF_API_EMBEDDING_MODEL,
-        )
+        return HFRouterEmbeddings(model_name=HF_API_EMBEDDING_MODEL, api_key=hf_token)
     else:
         from langchain_huggingface import HuggingFaceEmbeddings
         print(f"[ingest] Usando HuggingFace sentence-transformers (modo local): {HF_EMBEDDING_MODEL}")

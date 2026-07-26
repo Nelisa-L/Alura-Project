@@ -14,7 +14,7 @@ Requiere las variables de entorno GROQ_API_KEY y HF_TOKEN configuradas
 (nunca las escribas directamente en el codigo).
 """
 import os
-from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+from src.hf_router_embeddings import HFRouterEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate
@@ -74,10 +74,7 @@ class DocumentAgentCloud:
                 "Crea un token gratuito (read) en https://huggingface.co/settings/tokens"
             )
 
-        embeddings = HuggingFaceInferenceAPIEmbeddings(
-            api_key=hf_token,
-            model_name=HF_API_EMBEDDING_MODEL,
-        )
+        embeddings = HFRouterEmbeddings(model_name=HF_API_EMBEDDING_MODEL, api_key=hf_token)
         self.vectorstore = FAISS.load_local(
             VECTORSTORE_DIR, embeddings, allow_dangerous_deserialization=True
         )
